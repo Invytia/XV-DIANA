@@ -472,21 +472,93 @@ body.content-active #main-invitation {
         .map-card-direccion { font-family:'Montserrat',sans-serif;font-size:11px;font-weight:400;color:var(--text-muted);line-height:1.6;margin-bottom:8px; }
         .map-wrapper { width:100%;height:175px;border-radius:4px;overflow:hidden;border:1px solid rgba(180,170,195,0.3); }
 
-.galeria-contenedor {
-    width: 100%;
-    margin-top: 18px;
-    border-radius: 6px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 12px 30px rgba(60,50,70, 0.15);
-    position: relative;
-}
-.galeria-img {
-    width: 100%;
-    display: block;
-    height: auto;
-    transition: transform 0.5s ease;
-}
+        /* GALERÍA SLIDER NUEVA */
+        .slider-wrapper {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 6px;
+            margin-top: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 12px 30px rgba(60,50,70, 0.15);
+        }
+        .slider-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none;  /* IE 10+ */
+            gap: 10px;
+        }
+        .slider-container::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
+        }
+        .slider-container img {
+            scroll-snap-align: center;
+            flex: 0 0 100%;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: transform 0.3s;
+        }
+        .slider-container img:hover {
+            transform: scale(1.02);
+        }
+        .swipe-hint {
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 10px;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 12px;
+            animation: pulse 2.5s infinite;
+        }
+
+        /* LIGHTBOX PARA FOTOS */
+        #lightbox {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(10, 8, 12, 0.95);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(8px);
+        }
+        #lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            object-fit: contain;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            color: rgba(255,255,255,0.8);
+            font-size: 40px;
+            cursor: pointer;
+            font-family: sans-serif;
+            line-height: 1;
+            transition: color 0.3s;
+        }
+        .lightbox-close:hover {
+            color: #fff;
+        }
 
        .itinerario-timeline {
     margin-top:20px;
@@ -646,6 +718,11 @@ body.content-active #main-invitation {
     </style>
 </head>
 <body>
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img id="lightbox-img" src="" alt="Zoom Foto">
+    </div>
+
     <audio id="song" src="assets/song.mp3" loop preload="auto"></audio>
     <canvas id="glitter-canvas"></canvas>
     <button id="music-control-btn" onclick="toggleMusic()" aria-label="Control de música">
@@ -1014,9 +1091,18 @@ body.content-active #main-invitation {
     <div class="section-heading">Galería</div>
     <p class="rsvp-intro" style="margin-bottom: 12px;">Un pequeño vistazo a mi sesión de fotos profesional antes del gran día.</p>
     
-    <div class="galeria-contenedor">
-        <img src="assets/galeria.png" alt="Sesión de fotos Diana" class="galeria-img">
+    <div class="slider-wrapper">
+        <div class="slider-container" id="gallery-slider">
+            <img src="assets/galeria1.jpg" alt="Foto 1" onclick="openLightbox(this)">
+            <img src="assets/galeria2.jpg" alt="Foto 2" onclick="openLightbox(this)">
+            <img src="assets/galeria3.jpg" alt="Foto 3" onclick="openLightbox(this)">
+            <img src="assets/galeria4.jpg" alt="Foto 4" onclick="openLightbox(this)">
+            <img src="assets/galeria5.jpg" alt="Foto 5" onclick="openLightbox(this)">
+            <img src="assets/galeria6.jpg" alt="Foto 6" onclick="openLightbox(this)">
+            <img src="assets/galeria7.jpg" alt="Foto 7" onclick="openLightbox(this)">
+        </div>
     </div>
+    <div class="swipe-hint">← Desliza para ver más →</div>
 </div>
 
 <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
@@ -1072,7 +1158,7 @@ body.content-active #main-invitation {
                     </div>
                     <button type="submit" id="btn-wish" class="btn-confirmar" style="margin-top: 10px;">
                         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                        Enviar Mensaje
+                        Enviar por WhatsApp
                     </button>
                 </form>
             </div>
@@ -1212,11 +1298,23 @@ function openEnvelope() {
             icon.innerHTML=isPlaying?'<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>':'<path d="M8 5v14l11-7z"/>';
         }
 
+        // FUNCIONES DE LIGHTBOX PARA GALERIA
+        function openLightbox(imgElement) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imgElement.src;
+            lightbox.classList.add('active');
+        }
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+        }
+
         function sendConfirmationViaWhatsApp(){
             const inp=document.getElementById('guest-name');
             if(!inp||!inp.value.trim()){alert('Por favor ingresa tu nombre completo.');inp.focus();return;}
             const msg=`¡Hola! Confirmo mi asistencia a los XV Años de Diana Rosceli Torres Santana.\n\n• Nombre: ${inp.value.trim()}`;
-            window.open(`https://wa.me/525583815508?text=${encodeURIComponent(msg)}`,'_blank');
+            window.open(`https://wa.me/526461252945?text=${encodeURIComponent(msg)}`,'_blank');
         }
 
         function addToCalendar(){
@@ -1248,45 +1346,21 @@ function openEnvelope() {
             }
         }
         
-        const WISH_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxuWFYPYPsSC3hPkZ61UlYd9SbAn3cL3DS4GvSYQhYWx-zBAlR0XwkQfEyY0mKBGXO1/exec";
-
+        // FORMULARIO DE BUENOS DESEOS REDIRIGIDO A WHATSAPP
         const wishForm = document.getElementById('wish-form');
         if(wishForm) {
-            wishForm.addEventListener('submit', async function(e) {
+            wishForm.addEventListener('submit', function(e) {
                 e.preventDefault(); 
                 
-                const btn = document.getElementById('btn-wish');
                 const nombre = document.getElementById('wish-nombre').value;
                 const mensaje = document.getElementById('wish-mensaje').value;
-                const originalContent = btn.innerHTML;
                 
-                btn.innerHTML = 'Enviando...';
-                btn.style.opacity = '0.7';
-                btn.disabled = true;
-
-                try {
-                    await fetch(WISH_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: { 'Content-Type': 'text/plain' },
-                        body: JSON.stringify({ type: 'wish', nombre: nombre, mensaje: mensaje })
-                    });
-                } catch(err) { 
-                    console.log("Error de conexión:", err); 
-                }
-
-                setTimeout(() => {
-                    btn.innerHTML = '¡Mensaje Enviado!';
-                    btn.style.background = 'linear-gradient(135deg, rgba(78,57,93,0.88), rgba(120,91,138,0.88))';
-                    btn.style.opacity = '1';
-                    wishForm.reset();
-                    
-                    setTimeout(() => {
-                        btn.innerHTML = originalContent;
-                        btn.style.background = '';
-                        btn.disabled = false;
-                    }, 3500);
-                }, 800);
+                const msg = `¡Hola! Te dejo este mensaje con mucho cariño por tus XV Años:\n\n*De:* ${nombre}\n*Mensaje:* ${mensaje}`;
+                
+                // Abre WhatsApp con el mensaje prellenado
+                window.open(`https://wa.me/526461252945?text=${encodeURIComponent(msg)}`,'_blank');
+                
+                wishForm.reset();
             });
         }
     </script>
