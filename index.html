@@ -670,9 +670,23 @@ body.content-active #main-invitation {
 
         .rsvp-intro { font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;color:#382d3b;line-height:1.8;margin-bottom:22px; }
         .rsvp-input-label { font-family:'Cinzel',serif;font-size:8px;letter-spacing:3px;color:#4e395d;text-transform:uppercase;font-weight:400;display:block;margin-bottom:8px; }
+        
         .rsvp-input { width:100%;padding:13px 16px;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--text-deep);background:rgba(255,255,255,0.7);border:1px solid rgba(120,91,138,0.2);border-radius:4px;outline:none;transition:border-color 0.3s,box-shadow 0.3s; }
         .rsvp-input:focus { border-color:#785b8a;box-shadow:0 0 0 3px rgba(120,91,138,0.07); }
         .rsvp-input::placeholder { font-style:italic;color:rgba(100,90,110,0.45); }
+        
+        /* Ajuste específico para el select */
+        select.rsvp-input {
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23785b8a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px top 50%;
+            background-size: 12px auto;
+            padding-right: 40px;
+        }
+
         .rsvp-input-wrap { margin-bottom:18px; }
         .btn-confirmar {
             display:inline-flex;align-items:center;justify-content:center;gap:12px;width:100%;
@@ -1236,12 +1250,12 @@ body.content-active #main-invitation {
 
             <div class="bloque-vidrio">
                 <div class="section-heading">Consulta tus Pases</div>
-                <p class="rsvp-intro" style="margin-bottom: 18px;">Ingresa tu nombre para verificar el número de accesos asignados a tu invitación.</p>
+                <p class="rsvp-intro" style="margin-bottom: 18px;">Selecciona tu nombre de la lista para verificar el número de accesos asignados a tu invitación.</p>
                 
                 <div class="rsvp-input-wrap" style="margin-bottom: 0;">
-                    <input type="text" id="input-buscador-pases" class="rsvp-input" list="lista-invitados-datalist" placeholder="Buscar mi nombre..." oninput="verificarPases()" autocomplete="off">
-                    <datalist id="lista-invitados-datalist">
-                        </datalist>
+                    <select id="select-buscador-pases" class="rsvp-input" onchange="verificarPases()">
+                        <option value="" disabled selected>Selecciona tu nombre...</option>
+                        </select>
                 </div>
 
                 <div id="resultado-pases" style="display: none; margin-top: 24px;">
@@ -1506,7 +1520,7 @@ function openEnvelope() {
             });
         }
 
-        // --- LÓGICA DE CONSULTA DE PASES ---
+        // --- LÓGICA DE CONSULTA DE PASES (CON SELECT) ---
         const baseInvitados = [
             { nombre: "ABUELITOS", adultos: 2, ninos: 0, total: 2 },
             { nombre: "TIA ALMA", adultos: 2, ninos: 0, total: 2 },
@@ -1560,21 +1574,22 @@ function openEnvelope() {
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
-            const datalist = document.getElementById('lista-invitados-datalist');
-            if(datalist) {
+            const selectPases = document.getElementById('select-buscador-pases');
+            if(selectPases) {
                 baseInvitados.forEach(invitado => {
                     const option = document.createElement('option');
                     option.value = invitado.nombre;
-                    datalist.appendChild(option);
+                    option.textContent = invitado.nombre;
+                    selectPases.appendChild(option);
                 });
             }
         });
 
         function verificarPases() {
-            const inputVal = document.getElementById('input-buscador-pases').value.trim().toUpperCase();
+            const selectVal = document.getElementById('select-buscador-pases').value;
             const resultBox = document.getElementById('resultado-pases');
             
-            const invitadoEncontrado = baseInvitados.find(inv => inv.nombre.toUpperCase() === inputVal);
+            const invitadoEncontrado = baseInvitados.find(inv => inv.nombre === selectVal);
 
             if (invitadoEncontrado) {
                 document.getElementById('t-nombre').innerText = invitadoEncontrado.nombre;
