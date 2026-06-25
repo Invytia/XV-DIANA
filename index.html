@@ -674,18 +674,6 @@ body.content-active #main-invitation {
         .rsvp-input { width:100%;padding:13px 16px;font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;color:var(--text-deep);background:rgba(255,255,255,0.7);border:1px solid rgba(120,91,138,0.2);border-radius:4px;outline:none;transition:border-color 0.3s,box-shadow 0.3s; }
         .rsvp-input:focus { border-color:#785b8a;box-shadow:0 0 0 3px rgba(120,91,138,0.07); }
         .rsvp-input::placeholder { font-style:italic;color:rgba(100,90,110,0.45); }
-        
-        /* Ajuste específico para el select */
-        select.rsvp-input {
-            cursor: pointer;
-            appearance: none;
-            -webkit-appearance: none;
-            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23785b8a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px top 50%;
-            background-size: 12px auto;
-            padding-right: 40px;
-        }
 
         .rsvp-input-wrap { margin-bottom:18px; }
         .btn-confirmar {
@@ -723,105 +711,6 @@ body.content-active #main-invitation {
 
         @keyframes pulse { 0%,100%{opacity:0.5}50%{opacity:1} }
         @keyframes float-up { 0%{transform:translateY(0) translateX(0) rotate(0deg) scale(0.5);opacity:0}15%,85%{opacity:0.6}100%{transform:translateY(-100vh) translateX(50px) rotate(360deg) scale(1);opacity:0} }
-
-        /* --- ESTILOS PARA CONSULTA DE PASES Y WALLET --- */
-        .ticket-display {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(120, 91, 138, 0.2);
-            border-radius: 8px;
-            padding: 24px 20px;
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(70, 60, 80, 0.08);
-            animation: fadeInTicket 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-        }
-
-        @keyframes fadeInTicket {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .ticket-name {
-            font-family: 'Cinzel', serif;
-            font-size: 13px;
-            color: var(--text-lila);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            font-weight: 600;
-        }
-
-        .ticket-number {
-            font-family: 'Pinyon Script', cursive;
-            font-size: 55px;
-            color: var(--text-deep);
-            line-height: 1;
-            margin-bottom: 2px;
-        }
-
-        .ticket-label {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 9px;
-            color: var(--text-muted);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 18px;
-            font-weight: 500;
-        }
-
-        .ticket-breakdown {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            font-family: 'Cinzel', serif;
-            font-size: 10px;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            border-top: 1px solid rgba(120, 91, 138, 0.15);
-            padding-top: 14px;
-        }
-
-        .btn-wallet-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 20px;
-        }
-
-        .btn-wallet {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            width: 100%;
-            padding: 14px 20px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 11px;
-            font-weight: 600;
-            letter-spacing: 1px;
-            border-radius: 6px;
-            cursor: pointer;
-            border: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .apple-wallet {
-            background: #000;
-            color: #fff;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .google-wallet {
-            background: #fff;
-            color: #3c4043;
-            border: 1px solid #dadce0;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .btn-wallet:hover { transform: translateY(-2px); }
-        .apple-wallet:hover { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); }
-        .google-wallet:hover { box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
 
         @media(max-width:400px){
             .main-title{font-size:64px}
@@ -1248,43 +1137,6 @@ body.content-active #main-invitation {
 
             <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
 
-            <div class="bloque-vidrio">
-                <div class="section-heading">Consulta tus Pases</div>
-                <p class="rsvp-intro" style="margin-bottom: 18px;">Selecciona tu nombre de la lista para verificar el número de accesos asignados a tu invitación.</p>
-                
-                <div class="rsvp-input-wrap" style="margin-bottom: 0;">
-                    <select id="select-buscador-pases" class="rsvp-input" onchange="verificarPases()">
-                        <option value="" disabled selected>Selecciona tu nombre...</option>
-                        </select>
-                </div>
-
-                <div id="resultado-pases" style="display: none; margin-top: 24px;">
-                    <div class="ticket-display">
-                        <div class="ticket-name" id="t-nombre">Familia</div>
-                        <div class="ticket-number" id="t-total">0</div>
-                        <div class="ticket-label">Pases en Total</div>
-                        
-                        <div class="ticket-breakdown" id="t-desglose">
-                            <span id="t-adultos">Adultos: 0</span>
-                            <span id="t-ninos">Niños: 0</span>
-                        </div>
-                    </div>
-
-                    <div class="btn-wallet-container">
-                        <button type="button" class="btn-wallet apple-wallet" onclick="descargarWallet('apple')">
-                            <svg viewBox="0 0 384 512" width="16" height="16" fill="currentColor"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-                            Agregar a Apple Wallet
-                        </button>
-                        <button type="button" class="btn-wallet google-wallet" onclick="descargarWallet('google')">
-                            <svg viewBox="0 0 512 512" width="16" height="16" fill="currentColor"><path d="M125.9 248.8c0-18.8 4.6-36.4 12.6-51.7l-46.7-36.2C79.8 184 73 215.4 73 248.8s6.8 64.8 18.9 87.9l46.7-36.2c-8.1-15.3-12.7-32.9-12.7-51.7z" fill="#FBBC05"/><path d="M261 143.1c32.7 0 62.1 11.2 85.3 29.5l64-64C371 71.5 320.6 48.5 261 48.5 167 48.5 86.8 107.4 46.5 187.5l70.1 54.4c20.3-61.3 78.4-105.1 144.4-105.1z" fill="#EA4335"/><path d="M261 354.5c-66 0-124.1-43.8-144.4-105.1l-70.1 54.4C86.8 390.2 167 449.2 261 449.2c57.5 0 108.4-18.9 146.4-51.2l-64.4-50c-21.2 14.5-48.4 23.3-82 23.3z" fill="#34A853"/><path d="M465.3 248.8c0-15.6-1.4-30.8-4-45.6H261v90.4h117.4c-5.1 29.6-22.3 54.7-47.5 71.8l64.4 50c37.7-34.7 59.5-85.9 59.5-146.1z" fill="#4285F4"/></svg>
-                            Agregar a Google Wallet
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="divider-ornate"><div class="divider-ornate-diamond"></div></div>
-
             <div class="bloque-vidrio-alt">
                 <div class="section-heading">Confirmación</div>
                 <p class="rsvp-intro">Será un honor contar con tu presencia en esta noche tan especial. Por favor confirma tu asistencia.</p>
@@ -1518,101 +1370,6 @@ function openEnvelope() {
                 
                 wishForm.reset();
             });
-        }
-
-        // --- LÓGICA DE CONSULTA DE PASES (CON SELECT) ---
-        const baseInvitados = [
-            { nombre: "ABUELITOS", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "TIA ALMA", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "TIO VIVA", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "TIA MARY", adultos: 4, ninos: 0, total: 4 },
-            { nombre: "TIA MIREYA", adultos: 3, ninos: 0, total: 3 },
-            { nombre: "EDUARDO", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "YAREMI", adultos: 2, ninos: 2, total: 4 },
-            { nombre: "TIA ESTHER", adultos: 5, ninos: 0, total: 5 },
-            { nombre: "TIA LEO", adultos: 4, ninos: 1, total: 5 },
-            { nombre: "TIO SIXTO", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "SIXTO", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "JESSY", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "TIO DANIEL", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "ANA RENDON", adultos: 2, ninos: 2, total: 4 },
-            { nombre: "MARY RENDON", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "JUANITA", adultos: 4, ninos: 0, total: 4 },
-            { nombre: "ANGELES", adultos: 2, ninos: 1, total: 3 },
-            { nombre: "OLY", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "ROSA", adultos: 3, ninos: 0, total: 3 },
-            { nombre: "CINTHYA", adultos: 3, ninos: 1, total: 4 },
-            { nombre: "EDITH", adultos: 3, ninos: 1, total: 4 },
-            { nombre: "RAFA", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "MARIO", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "RICARDO", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "ROSY", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "MECHE", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "MAMA CELITA", adultos: 2, ninos: 0, total: 2 },
-            { nombre: "TIA SAHIDEE", adultos: 5, ninos: 0, total: 5 },
-            { nombre: "EVER Y LEO", adultos: 3, ninos: 0, total: 3 },
-            { nombre: "ROXXY", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "KIMBERLY", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "SAILE", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "DAYA", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "CAMILA", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "DAMIAN", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "MAX", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "MARIA", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "NIKOL", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "LEONARDO", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "LIAM", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "ZEPEDA", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "MIGUEL", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "ESTRELLA", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "MARIO (AMIGO)", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "SAMUEL", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "AMY", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "ALEJANDRO", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "ISAAC", adultos: 1, ninos: 0, total: 1 },
-            { nombre: "KHYARA", adultos: 1, ninos: 0, total: 1 }
-        ];
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const selectPases = document.getElementById('select-buscador-pases');
-            if(selectPases) {
-                baseInvitados.forEach(invitado => {
-                    const option = document.createElement('option');
-                    option.value = invitado.nombre;
-                    option.textContent = invitado.nombre;
-                    selectPases.appendChild(option);
-                });
-            }
-        });
-
-        function verificarPases() {
-            const selectVal = document.getElementById('select-buscador-pases').value;
-            const resultBox = document.getElementById('resultado-pases');
-            
-            const invitadoEncontrado = baseInvitados.find(inv => inv.nombre === selectVal);
-
-            if (invitadoEncontrado) {
-                document.getElementById('t-nombre').innerText = invitadoEncontrado.nombre;
-                document.getElementById('t-total').innerText = invitadoEncontrado.total;
-                
-                const desgloseBox = document.getElementById('t-desglose');
-                if(invitadoEncontrado.total > 1 && (invitadoEncontrado.adultos > 0 || invitadoEncontrado.ninos > 0)){
-                    desgloseBox.style.display = 'flex';
-                    document.getElementById('t-adultos').innerText = `Adultos: ${invitadoEncontrado.adultos}`;
-                    document.getElementById('t-ninos').innerText = `Niños: ${invitadoEncontrado.ninos}`;
-                } else {
-                    desgloseBox.style.display = 'none';
-                }
-                
-                resultBox.style.display = 'block';
-            } else {
-                resultBox.style.display = 'none';
-            }
-        }
-
-        function descargarWallet(tipo) {
-            const invitadoActual = document.getElementById('t-nombre').innerText;
-            alert(`Generando pase de ${tipo === 'apple' ? 'Apple Wallet' : 'Google Wallet'} para: ${invitadoActual}.\n\n(Requiere integración con endpoint de Apps Script para compilar el pase).`);
         }
     </script>
 </body>
